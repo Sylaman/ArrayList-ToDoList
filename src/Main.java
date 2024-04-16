@@ -10,7 +10,7 @@ public class Main {
         while (true) {
             printMenu();
             String input = scanner.nextLine();
-            if (input.equals("0")) {
+            if (input.equals("EXIT")) {
                 System.out.println("Работа программы завершена.");
                 break;
             }
@@ -22,10 +22,11 @@ public class Main {
                     if (inputArray[1].matches("\\d.*")) {
                         int index = Integer.parseInt(inputArray[1].replaceAll("\\D+", ""));
                         String task = inputArray[1].replaceAll("\\d+", "").trim();
-                        todoList.add(index, task);
+                        todoList.add(index - 1, task);
                     } else {
                         todoList.add(inputArray[1]);
                     }
+                    break;
                 case "DELETE":
                     if (inputArray.length < 2) {
                         System.out.println("Не указан номер дела для удаления");
@@ -35,8 +36,9 @@ public class Main {
                         break;
                     } else {
                         int index = Integer.parseInt(inputArray[1]);
-                        todoList.delete(index);
+                        todoList.delete(index - 1);
                     }
+                    break;
                 case "EDIT":
                     if (inputArray.length < 2) {
                         System.out.println("Не указан номер редактируемого дела");
@@ -47,13 +49,15 @@ public class Main {
                     } else {
                         int index = Integer.parseInt(inputArray[1].replaceAll("\\D+", ""));
                         String task = inputArray[1].replaceAll("\\d+", "").trim();
-                        todoList.edit(index, task);
+                        todoList.edit(index - 1, task);
                     }
+                    break;
                 case "LIST":
                     ArrayList<String> todolist = todoList.getTodos();
                     for (int i = 0; i < todolist.size(); i++) {
-                        System.out.println(i + " - " + todolist.get(i));
+                        System.out.println((i + 1) + " - " + todolist.get(i));
                     }
+                    break;
                 default:
                     System.out.println("Введена некорректная команда!");
                     break;
@@ -66,8 +70,8 @@ public class Main {
         System.out.println("ADD дело (для добавления дела в конец списка) "
                 + "или ADD X дело (где X - номер в списке для добавления дела)");
         System.out.println("DELETE X (для удаления дела под номером X");
-        System.out.println("EDIT X (для замена дела под номером X на новое");
+        System.out.println("EDIT X дело (для замена дела под номером X на новое");
         System.out.println("LIST (для вывода списка дел с их порядковыми номерами)");
-        System.out.println("0 (для выхода из программы)");
+        System.out.println("EXIT (для выхода из программы)");
     }
 }
